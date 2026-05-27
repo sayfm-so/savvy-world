@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ساڤي وورلد · بوابتك للعالم الجديد</title>
+<meta name="description" content="ساڤي وورلد، الموزّع المعتمد لروبوتات Unitree في السعودية. روبوتات وذكاء اصطناعي مسؤول، بدعم محلي سعودي." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600;700;800;900&family=Tajawal:wght@300;400;500;700&family=Archivo:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* warm cream canvas, electric-blue accent pulled from the real Savvy robot face + logo */
+    --canvas:    oklch(0.975 0.011 80);
+    --surface:   oklch(0.948 0.015 80);
+    --surface-2: oklch(0.918 0.018 78);
+    --ink:       oklch(0.205 0.020 60);
+    --charcoal:  oklch(0.330 0.020 60);
+    --ash:       oklch(0.545 0.018 62);
+    --line:      oklch(0.205 0.020 60 / 0.12);
+
+    --blue:      oklch(0.560 0.205 255);
+    --blue-deep: oklch(0.470 0.190 256);
+    --blue-soft: oklch(0.560 0.205 255 / 0.12);
+
+    --night:     oklch(0.185 0.028 258);
+    --night-2:   oklch(0.235 0.032 258);
+    --cream:     oklch(0.955 0.012 80);
+
+    --ease-expo:  cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-quart: cubic-bezier(0.25, 1, 0.5, 1);
+
+    --maxw: 1240px;
+    --pad: clamp(1.25rem, 5vw, 4.5rem);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: "Tajawal", system-ui, sans-serif;
+    background: var(--canvas); color: var(--ink);
+    line-height: 1.7; font-weight: 400;
+    font-size: clamp(1rem, 0.5vw + 0.92rem, 1.13rem);
+    overflow-x: hidden; -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--blue); color: var(--cream); }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  .wrap { max-width: var(--maxw); margin-inline: auto; padding-inline: var(--pad); }
+
+  h1, h2, h3, h4, .display { font-family: "Noto Kufi Arabic", sans-serif; }
+
+  .kicker {
+    font-family: "Archivo", sans-serif; direction: ltr;
+    font-size: 0.74rem; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--blue-deep);
+    display: inline-flex; align-items: center; gap: 0.7em;
+  }
+  .kicker::before { content: ""; width: 2rem; height: 2px; background: var(--blue); display: inline-block; }
+
+  /* ---------- NAV ---------- */
+  header { position: fixed; inset-block-start: 0; inset-inline: 0; z-index: 60;
+    transition: background .4s var(--ease-quart), border-color .4s, backdrop-filter .4s; border-block-end: 1px solid transparent; }
+  header.scrolled { background: oklch(0.975 0.011 80 / 0.85); backdrop-filter: blur(16px) saturate(1.5); border-block-end: 1px solid var(--line); }
+  nav { max-width: var(--maxw); margin-inline: auto; padding: 1.1rem var(--pad);
+    display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+  .brand { display: flex; align-items: center; gap: 0.55rem; font-family: "Noto Kufi Arabic"; font-weight: 800; font-size: 1.35rem; letter-spacing: -0.01em; }
+  .brand .dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--blue); display: inline-block; box-shadow: 0 0 0 4px var(--blue-soft); }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a:not(.btn) { font-weight: 500; color: var(--charcoal); position: relative; }
+  .nav-links a:not(.btn)::after { content: ""; position: absolute; inset-block-end: -5px; inset-inline-start: 0; width: 100%; height: 2px; background: var(--blue); transform: scaleX(0); transform-origin: inline-end; transition: transform .35s var(--ease-expo); }
+  .nav-links a:not(.btn):hover { color: var(--ink); }
+  .nav-links a:not(.btn):hover::after { transform: scaleX(1); transform-origin: inline-start; }
+  @media (max-width: 780px) { .nav-links a:not(.btn) { display: none; } }
+
+  .btn { font-family: "Tajawal"; font-weight: 700; font-size: 0.97rem; padding: 0.75rem 1.5rem; border-radius: 100px;
+    border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: transform .3s var(--ease-expo), box-shadow .3s var(--ease-expo), background .3s; will-change: transform; }
+  .btn-primary { background: var(--blue); color: var(--cream); box-shadow: 0 2px 4px oklch(0.4 0.19 256 / .3); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -8px oklch(0.5 0.2 256 / .55); background: var(--blue-deep); }
+  .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+  .btn-ghost:hover { transform: translateY(-2px); border-color: var(--ink); }
+  .btn .arr { transition: transform .3s var(--ease-expo); }
+  .btn:hover .arr { transform: translateX(-4px); }
+
+  /* ---------- HERO ---------- */
+  .hero { padding-block: clamp(8.5rem, 19vh, 13rem) clamp(2rem, 5vh, 4rem); }
+  .hero .ey { display: block; margin-block-end: 1.6rem; }
+  h1.display { font-weight: 900; font-size: clamp(3rem, 12vw, 9rem); line-height: 0.92; letter-spacing: -0.03em; color: var(--ink); }
+  h1.display .accent { color: var(--blue); }
+  .hero .lead { font-size: clamp(1.1rem, 1.6vw, 1.4rem); color: var(--charcoal); max-width: 42ch; margin-block-start: 1.8rem; font-weight: 400; }
+  .hero-cta { display: flex; gap: 0.9rem; margin-block-start: 2.4rem; flex-wrap: wrap; }
+
+  /* full-bleed hero photo with bold offset frame */
+  .hero-shot { margin-block-start: clamp(2.5rem, 6vw, 5rem); position: relative; }
+  .hero-shot .frame { position: relative; border-radius: 26px; overflow: hidden; box-shadow: 0 40px 90px -40px oklch(0.2 0.02 60 / .45); }
+  .hero-shot .frame::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, oklch(0.18 0.03 258 / .5), transparent 45%); }
+  .hero-shot img { width: 100%; aspect-ratio: 16/8; object-fit: cover; }
+  .hero-shot .offset { position: absolute; inset-block-end: -16px; inset-inline-start: -16px; width: 38%; height: 70%; background: var(--blue); border-radius: 26px; z-index: -1; }
+  .hero-shot .cap { position: absolute; inset-block-end: 1.4rem; inset-inline-start: 1.6rem; color: var(--cream); font-family: "Archivo"; direction: ltr; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; z-index: 2; display: flex; align-items: center; gap: .6rem; }
+  .hero-shot .cap::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 4px oklch(0.56 0.2 255 / .35); }
+
+  /* ---------- MARQUEE ---------- */
+  .strip { border-block: 1px solid var(--line); background: var(--surface); padding-block: 1.15rem; overflow: hidden; margin-block-start: clamp(3rem, 7vw, 6rem); }
+  .marquee { display: flex; gap: 3rem; white-space: nowrap; width: max-content; animation: slide 30s linear infinite; }
+  .marquee span { font-family: "Archivo"; direction: ltr; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ash); display: inline-flex; align-items: center; gap: 3rem; }
+  .marquee span::after { content: "✦"; color: var(--blue); }
+  @keyframes slide { to { transform: translateX(50%); } }
+
+  /* ---------- SECTION ---------- */
+  section.block { padding-block: clamp(5rem, 12vh, 9rem); }
+  .sec-head { max-width: 50ch; margin-block-end: clamp(2.5rem, 5vw, 4.5rem); }
+  .sec-head h2 { font-size: clamp(2.2rem, 5.5vw, 4.2rem); font-weight: 800; line-height: 1.02; letter-spacing: -0.02em; margin-block: 1.1rem 0.9rem; }
+  .sec-head p { color: var(--ash); font-size: 1.12rem; }
+
+  /* ---------- FIELD GALLERY (real photos, asymmetric) ---------- */
+  .gallery { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 215px; gap: 1.1rem; }
+  @media (max-width: 860px) { .gallery { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .gallery { grid-template-columns: 1fr; grid-auto-rows: 250px; } }
+  .shot { position: relative; border-radius: 22px; overflow: hidden; background: var(--surface-2); }
+  .shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease-expo); }
+  .shot:hover img { transform: scale(1.05); }
+  .shot::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, oklch(0.16 0.03 258 / .74), transparent 58%); }
+  .shot .meta { position: absolute; inset-block-end: 0; inset-inline: 0; padding: 1.4rem; z-index: 2; color: var(--cream); }
+  .shot .meta .k { font-family: "Archivo"; direction: ltr; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.78 0.14 255); }
+  .shot .meta h4 { font-size: clamp(1.1rem, 1.8vw, 1.55rem); font-weight: 700; margin-block-start: 0.3rem; line-height: 1.12; }
+  .shot.tall { grid-row: span 2; }
+  .shot.wide { grid-column: span 2; }
+  @media (max-width: 520px) { .shot.tall { grid-row: span 1; } .shot.wide { grid-column: span 1; } }
+
+  /* ---------- ACTIVATIONS (dark neon band — intentional art direction) ---------- */
+  .activations { background: var(--night); color: var(--cream); position: relative; overflow: hidden; }
+  .activations::before { content: ""; position: absolute; inset-block-start: -20%; inset-inline-end: -8%; width: 40vw; height: 40vw; border-radius: 50%; background: radial-gradient(circle, oklch(0.56 0.2 300 / .25), transparent 65%); pointer-events: none; }
+  .activations .kicker { color: oklch(0.8 0.13 300); }
+  .activations .kicker::before { background: oklch(0.8 0.13 300); }
+  .activations .sec-head h2 { color: var(--cream); }
+  .activations .sec-head p { color: oklch(0.8 0.012 80); }
+  .act-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 200px; gap: 1rem; }
+  @media (max-width: 860px) { .act-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .act-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; } }
+  .act { position: relative; border-radius: 18px; overflow: hidden; background: var(--night-2); border: 1px solid oklch(0.955 0.012 80 / 0.08); }
+  .act img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease-expo); }
+  .act:hover img { transform: scale(1.06); }
+  .act::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, oklch(0.16 0.03 280 / .7), transparent 60%); }
+  .act .cap { position: absolute; inset-block-end: 0; inset-inline: 0; padding: 1.2rem; z-index: 2; color: var(--cream); font-weight: 600; font-size: clamp(0.95rem, 1.5vw, 1.2rem); }
+  .act.big { grid-column: span 2; grid-row: span 2; }
+  @media (max-width: 520px) { .act.big { grid-column: span 1; grid-row: span 1; } }
+
+  /* ---------- PARTNERS strip ---------- */
+  .partners { background: var(--night); border-radius: 22px; padding: clamp(1.6rem,4vw,2.6rem); margin-block-start: 1.6rem; text-align: center; }
+  .partners .plabel { font-family: "Archivo"; direction: ltr; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.78 0.14 255); display: block; margin-block-end: 1.5rem; }
+  .partners .logos { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: clamp(1.6rem,5vw,3.6rem); }
+  .partners img { height: clamp(22px,3.5vw,32px); width: auto; filter: brightness(0) invert(1); opacity: 0.68; transition: opacity .3s var(--ease-expo); }
+  .partners img:hover { opacity: 1; }
+
+  /* ---------- VIDEO ---------- */
+  .video-wrap { border-radius: 22px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 30px 70px -30px oklch(0.2 0.02 60 / .4); background: var(--night); }
+  .video-wrap video { width: 100%; display: block; }
+
+  /* ---------- PRODUCTS (bold typographic list) ---------- */
+  .fleet { display: grid; gap: 0; border-block-start: 1px solid var(--line); }
+  .unit { display: grid; grid-template-columns: auto auto 1fr auto; gap: clamp(1rem, 3vw, 2.4rem); align-items: center;
+    padding-block: clamp(1.4rem, 3vw, 2.4rem); border-block-end: 1px solid var(--line); transition: transform .4s var(--ease-expo); position: relative; }
+  .unit .thumb { width: clamp(76px, 13vw, 150px); aspect-ratio: 4/3; border-radius: 14px; overflow: hidden; background: var(--night-2); }
+  .unit .thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease-expo); }
+  .unit:hover .thumb img { transform: scale(1.07); }
+  .unit::before { content: ""; position: absolute; inset-block: 0; inset-inline: 0; background: var(--blue-soft); transform: scaleX(0); transform-origin: inline-start; transition: transform .4s var(--ease-expo); z-index: -1; border-radius: 16px; }
+  .unit:hover { transform: translateX(-10px); }
+  .unit:hover::before { transform: scaleX(1); }
+  .unit .idx { font-family: "Archivo"; direction: ltr; font-weight: 800; font-size: 1rem; color: var(--blue-deep); }
+  .unit .name { display: flex; flex-direction: column; }
+  .unit .name b { font-family: "Noto Kufi Arabic"; font-weight: 800; font-size: clamp(1.6rem, 4vw, 2.8rem); line-height: 1; letter-spacing: -0.01em; }
+  .unit .name span { color: var(--ash); margin-block-start: 0.4rem; font-size: 1rem; }
+  .unit .spec { font-family: "Archivo"; direction: ltr; text-align: end; color: var(--charcoal); font-weight: 600; white-space: nowrap; }
+  .unit .spec b { display: block; font-size: 1.3rem; color: var(--ink); font-weight: 800; }
+  .unit .spec small { font-family: "Tajawal"; color: var(--ash); font-size: 0.82rem; }
+  @media (max-width: 680px) { .unit { grid-template-columns: auto auto 1fr; } .unit .spec { display: none; } }
+
+  /* ---------- MISSION (dark band) ---------- */
+  .mission { background: var(--night); color: var(--cream); position: relative; overflow: hidden; }
+  .mission::before { content: ""; position: absolute; inset-block-start: -25%; inset-inline-start: -8%; width: 45vw; height: 45vw; border-radius: 50%; background: radial-gradient(circle, oklch(0.56 0.2 255 / .28), transparent 65%); pointer-events: none; }
+  .mission .kicker { color: oklch(0.78 0.14 255); }
+  .mission .kicker::before { background: oklch(0.78 0.14 255); }
+  .mission h2 { font-size: clamp(2.2rem, 6vw, 4.4rem); font-weight: 800; line-height: 1.06; letter-spacing: -0.02em; max-width: 22ch; margin-block: 1.2rem 0; }
+  .mission h2 em { font-style: normal; color: oklch(0.72 0.17 256); }
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; margin-block-start: clamp(3rem, 6vw, 5rem); }
+  @media (max-width: 760px) { .pillars { grid-template-columns: 1fr; gap: 2rem; } }
+  .pillar { padding-block-start: 1.4rem; border-block-start: 2px solid oklch(0.955 0.012 80 / .2); }
+  .pillar .pn { font-family: "Archivo"; direction: ltr; font-weight: 800; font-size: 0.85rem; color: oklch(0.78 0.14 255); }
+  .pillar h4 { font-size: 1.45rem; font-weight: 700; margin-block: 0.6rem; }
+  .pillar p { color: oklch(0.82 0.01 80); }
+
+  /* ---------- VIDEO (ready for YouTube embed) ---------- */
+  .video-shell { position: relative; border-radius: 24px; overflow: hidden; aspect-ratio: 16/9; background: var(--night-2);
+    display: grid; place-items: center; text-align: center; color: var(--cream); }
+  .video-shell iframe { width: 100%; height: 100%; border: 0; }
+  .video-ph { padding: 2rem; }
+  .video-ph .play { width: 76px; height: 76px; border-radius: 50%; background: var(--blue); display: grid; place-items: center; margin: 0 auto 1.2rem; box-shadow: 0 0 0 10px oklch(0.56 0.2 255 / .2); }
+  .video-ph .play::after { content: ""; border-style: solid; border-width: 13px 0 13px 20px; border-color: transparent transparent transparent var(--cream); transform: translateX(-3px) scaleX(-1); }
+  .video-ph small { color: oklch(0.8 0.01 80); font-family: "Archivo"; direction: ltr; letter-spacing: 0.08em; font-size: 0.8rem; }
+
+  /* ---------- CTA (photo bg) ---------- */
+  .cta { position: relative; overflow: hidden; color: var(--cream); text-align: center; border-radius: 0; }
+  .cta .bg { position: absolute; inset: 0; z-index: 0; }
+  .cta .bg img { width: 100%; height: 100%; object-fit: cover; }
+  .cta .bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(oklch(0.16 0.03 258 / .82), oklch(0.16 0.03 258 / .88)); }
+  .cta .inner { position: relative; z-index: 2; padding-block: clamp(5rem, 13vh, 9rem); }
+  .cta h2 { font-size: clamp(2.4rem, 7vw, 5.5rem); font-weight: 900; line-height: 0.98; letter-spacing: -0.025em; max-width: 16ch; margin-inline: auto; }
+  .cta h2 .accent { color: oklch(0.72 0.17 256); }
+  .cta p { color: oklch(0.86 0.01 80); margin-block: 1.5rem 2.6rem; font-size: 1.18rem; }
+  .cta .hero-cta { justify-content: center; }
+
+  /* ---------- FOOTER ---------- */
+  footer { background: var(--surface); border-block-start: 1px solid var(--line); padding-block: 3.5rem 2.5rem; }
+  .frow { display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem; flex-wrap: wrap; }
+  .social { display: flex; gap: 0.7rem; margin-block-start: 1rem; }
+  .social a { width: 42px; height: 42px; border-radius: 12px; border: 1.5px solid var(--line); display: grid; place-items: center; color: var(--charcoal); font-family: "Archivo"; font-weight: 700; font-size: 0.7rem; transition: all .3s var(--ease-expo); }
+  .social a:hover { background: var(--blue); color: var(--cream); border-color: var(--blue); transform: translateY(-3px); }
+  footer .fnote { font-family: "Archivo"; direction: ltr; font-size: 0.76rem; letter-spacing: 0.05em; color: var(--ash); margin-block-start: 2.5rem; }
+
+  /* ---------- REVEAL ---------- */
+  [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity .85s var(--ease-expo), transform .85s var(--ease-expo); }
+  [data-reveal].in { opacity: 1; transform: none; }
+  [data-d="1"] { transition-delay: .08s; } [data-d="2"] { transition-delay: .16s; }
+  [data-d="3"] { transition-delay: .24s; } [data-d="4"] { transition-delay: .32s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+    [data-reveal] { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <nav>
+    <a class="brand" href="#top">ساڤي وورلد <span class="dot"></span></a>
+    <div class="nav-links">
+      <a href="#field">في الميدان</a>
+      <a href="#events">معارضنا</a>
+      <a href="#activations">تجاربنا</a>
+      <a href="#fleet">الأسطول</a>
+      <a href="#mission">لماذا ساڤي</a>
+      <a href="#contact" class="btn btn-primary">احجز عرضًا <span class="arr">←</span></a>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero wrap">
+    <span class="kicker ey" data-reveal>Savvy × Unitree · KSA</span>
+    <h1 class="display" data-reveal data-d="1">بوابتك للعالم <span class="accent">الجديد</span></h1>
+    <p class="lead" data-reveal data-d="2">ساڤي وورلد: الموزّع المعتمد لروبوتات Unitree في السعودية، وذراعك لتوطين الروبوتات والذكاء الاصطناعي — من المعرض إلى التشغيل، بصوت عربي ودعم سعودي يوقف معك.</p>
+    <div class="hero-cta" data-reveal data-d="3">
+      <a href="#fleet" class="btn btn-primary">استكشف الأسطول <span class="arr">←</span></a>
+      <a href="#contact" class="btn btn-ghost">تواصل معنا</a>
+    </div>
+
+    <div class="hero-shot" data-reveal data-d="2">
+      <div class="offset" aria-hidden="true"></div>
+      <div class="frame">
+        <img src="assets/savvy-expo-wide.png" alt="زوّار سعوديون بالثوب يتجمّعون حول روبوت ساڤي في معرض تقني بالرياض" />
+        <span class="cap">Live · معرض الرياض</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="strip" aria-hidden="true">
+    <div class="marquee">
+      <span>UNITREE R1</span><span>UNITREE G1</span><span>QUADRUPED GO2</span><span>صوت عربي</span><span>دعم سعودي</span><span>VISION 2030</span><span>UNITREE R1</span><span>UNITREE G1</span><span>QUADRUPED GO2</span><span>صوت عربي</span><span>دعم سعودي</span><span>VISION 2030</span>
+    </div>
+  </div>
+
+  <!-- FIELD GALLERY -->
+  <section class="block wrap" id="field">
+    <div class="sec-head" data-reveal>
+      <span class="kicker">In The Field</span>
+      <h2>مو رندر. هذا الروبوت بين الناس فعلًا.</h2>
+      <p>من معارضنا في المملكة، عوائل وزوّار يتفاعلون مع روبوت ساڤي وجهًا لوجه.</p>
+    </div>
+
+    <div class="gallery">
+      <div class="shot tall" data-reveal>
+        <img src="assets/savvy-shemagh.png" alt="رجل سعودي بالشماغ الأحمر يفحص روبوت ساڤي عن قرب" />
+        <div class="meta"><span class="k">Riyadh Expo</span><h4>لمسة أولى مع المستقبل</h4></div>
+      </div>
+      <div class="shot tall" data-reveal data-d="1">
+        <img src="assets/savvy-makkah.png" alt="روبوت ساڤي يتفاعل مع الزوّار قرب الحرم في مكة المكرمة" />
+        <div class="meta"><span class="k">Makkah</span><h4>من قلب العاصمة المقدسة</h4></div>
+      </div>
+      <div class="shot" data-reveal data-d="2">
+        <img src="assets/savvy-kids.png" alt="أطفال سعوديون يتفاعلون بحماس مع روبوت ساڤي بحضور عوائلهم" />
+        <div class="meta"><span class="k">Family Day</span><h4>الجيل اللي بيكبر معه</h4></div>
+      </div>
+      <div class="shot" data-reveal data-d="3">
+        <img src="assets/savvy-night.png" alt="زائرة تصافح روبوت ساڤي مساءً عند نافورة في فعالية" />
+        <div class="meta"><span class="k">Live · الرياض</span><h4>تواصل إنساني، وجهًا لوجه</h4></div>
+      </div>
+      <div class="shot" data-reveal>
+        <img src="assets/savvy-venue.png" alt="جناح ساڤي بجانب شاشة عملاقة في معرض تقني" />
+        <div class="meta"><span class="k">On Ground</span><h4>حاضرين في كل حدث</h4></div>
+      </div>
+      <div class="shot wide" data-reveal data-d="1">
+        <img src="assets/savvy-qr.png" alt="زائرة تصوّر روبوت ساڤي بجوالها عبر رمز QR على جسم الروبوت" />
+        <div class="meta"><span class="k">Engagement</span><h4>امسح. تواصل. جرّب.</h4></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTIVATIONS -->
+  <section class="activations" id="activations">
+    <div class="block wrap">
+      <div class="sec-head" data-reveal>
+        <span class="kicker">Live Activations</span>
+        <h2>نصمّم التجربة، مو بس نعرض المنتج.</h2>
+        <p>أجنحة ومنصّات غامرة تخلّي التقنية تنبض أمام الزوّار في أكبر معارض المملكة.</p>
+      </div>
+      <div class="act-grid">
+        <div class="act big" data-reveal><img src="assets/act-atom.jpg" alt="مجسّم نيون لشعار ساڤي على شكل ذرّة في جناح بطابع فضائي" /><span class="cap">هويتنا، منحوتة بالضوء</span></div>
+        <div class="act" data-reveal data-d="1"><img src="assets/act-kiosk.jpg" alt="كشك تفاعلي مضيء بشكل مكعّب في معرض سعودي" /><span class="cap">كشك التدقيق التفاعلي</span></div>
+        <div class="act" data-reveal data-d="2"><img src="assets/act-immersive.jpg" alt="زائرتان سعوديتان في جناح غامر بشاشات ثلاثية الأبعاد" /><span class="cap">تجربة غامرة للزوّار</span></div>
+        <div class="act" data-reveal data-d="1"><img src="assets/act-tunnel.jpg" alt="ممر نيون غامر يقود زوّار المعرض" /><span class="cap">ممر المستقبل</span></div>
+        <div class="act" data-reveal data-d="2"><img src="assets/act-sphere.jpg" alt="كرة LED كروية تعرض رموز خدمات ساڤي" /><span class="cap">عجلة التقنية</span></div>
+        <div class="act" data-reveal data-d="3"><img src="assets/act-gala.jpg" alt="منصّة عرض مركزية مضيئة في قاعة فعالية كبرى" /><span class="cap">حضور على المسرح الكبير</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVENTS & PARTNERS -->
+  <section class="block wrap" id="events">
+    <div class="sec-head" data-reveal>
+      <span class="kicker">Expos &amp; Partners</span>
+      <h2>حاضرين في أكبر معارض المملكة.</h2>
+      <p>من Cityscape والقمة العالمية للبروبتك، إلى شراكات موقّعة على الأرض.</p>
+    </div>
+    <div class="gallery evgrid">
+      <div class="shot" data-reveal><img src="assets/ev-interview.jpg" alt="روبوت ساڤي في مقابلة صحفية بمايكروفون" /><div class="meta"><span class="k">Media</span><h4>الروبوت في الأخبار</h4></div></div>
+      <div class="shot" data-reveal data-d="1"><img src="assets/ev-signing.jpg" alt="حفل توقيع شراكة بين إنكيوب والخزامى بحضور تنفيذيين سعوديين" /><div class="meta"><span class="k">Partnership</span><h4>شراكات موقّعة</h4></div></div>
+      <div class="shot" data-reveal data-d="2"><img src="assets/ev-makkah2.jpg" alt="روبوت ساڤي قرب خلفية مكة مع أطفال وزوّار" /><div class="meta"><span class="k">Mawasim</span><h4>قرب الحرم</h4></div></div>
+      <div class="shot" data-reveal data-d="3"><img src="assets/ev-robotnight.jpg" alt="روبوت ساڤي وسط جمهور سعودي مساءً" /><div class="meta"><span class="k">Live</span><h4>وسط الزحمة</h4></div></div>
+      <div class="shot" data-reveal><img src="assets/ev-crowd.jpg" alt="زوّار يصوّرون روبوت ساڤي بجوالاتهم" /><div class="meta"><span class="k">Engagement</span><h4>الكل يصوّر</h4></div></div>
+      <div class="shot" data-reveal data-d="1"><img src="assets/ev-tour.jpg" alt="مسؤولون سعوديون يتجولون في جناح إنكيوب" /><div class="meta"><span class="k">VIP Tour</span><h4>جولة المسؤولين</h4></div></div>
+      <div class="shot" data-reveal data-d="2"><img src="assets/ev-kiosk.jpg" alt="كشك سكني من Hisense وNHC مع زوّار" /><div class="meta"><span class="k">NHC × Hisense</span><h4>تجربة سكني</h4></div></div>
+      <div class="shot" data-reveal data-d="3"><img src="assets/ev-gaming.jpg" alt="جناح Samsung وإنكيوب وزوّار يلعبون" /><div class="meta"><span class="k">Samsung × Incube</span><h4>جناح يجمع الناس</h4></div></div>
+      <div class="shot" data-reveal><img src="assets/ev-vip.jpg" alt="جولة كبار الشخصيات في معرض ساڤي" /><div class="meta"><span class="k">Delegation</span><h4>وفود رسمية</h4></div></div>
+      <div class="shot" data-reveal data-d="1"><img src="assets/ev-pillar.jpg" alt="عمود LED بنفسجي في فعالية ساڤي" /><div class="meta"><span class="k">Activation</span><h4>عمود الضوء</h4></div></div>
+      <div class="shot" data-reveal data-d="2"><img src="assets/ev-cityscape.jpg" alt="مدخل معرض Cityscape بشاشة LED عملاقة" /><div class="meta"><span class="k">Cityscape</span><h4>أكبر المنصات</h4></div></div>
+      <div class="shot" data-reveal data-d="3"><img src="assets/ev-summit.jpg" alt="القمة العالمية للبروبتك أمام برج الفيصلية" /><div class="meta"><span class="k">PropTech</span><h4>القمة العالمية</h4></div></div>
+    </div>
+
+    <div class="partners" data-reveal>
+      <span class="plabel">شركاء وعملاء · Partners &amp; Clients</span>
+      <div class="logos">
+        <img src="assets/brand/p-hisense.png" alt="Hisense" />
+        <img src="assets/brand/p-nhc.png" alt="NHC" />
+        <img src="assets/brand/p-rega.png" alt="REGA" />
+        <img src="assets/brand/p-proptech.png" alt="Proptech" />
+        <img src="assets/brand/p-incube-samsung.png" alt="Samsung Incube" />
+        <img src="assets/brand/p-eor.png" alt="Eyes of Riyadh" />
+      </div>
+    </div>
+  </section>
+
+  <!-- FLEET -->
+  <section class="block wrap" id="fleet">
+    <div class="sec-head" data-reveal>
+      <span class="kicker">The Fleet</span>
+      <h2>ثلاث منصّات. عالم واحد جديد.</h2>
+    </div>
+    <div class="fleet">
+      <div class="unit" data-reveal>
+        <span class="idx">01</span>
+        <div class="thumb"><img src="assets/unit-r1.jpg" alt="روبوت Unitree البشري الخفيف R1" /></div>
+        <div class="name"><b>Unitree R1</b><span>روبوت بشري خفيف بتكلفة أقل، بوابة دخولك لعالم الروبوتات الإنسانية.</span></div>
+        <div class="spec"><b>~25kg</b><small>وزن خفيف</small></div>
+      </div>
+      <div class="unit" data-reveal data-d="1">
+        <span class="idx">02</span>
+        <div class="thumb"><img src="assets/unit-g1.jpg" alt="روبوت Unitree G1 البشري الفضي في بيئة عمل" /></div>
+        <div class="name"><b>Unitree G1</b><span>المنصّة المتقدّمة للأبحاث والعروض التفاعلية والصوت العربي.</span></div>
+        <div class="spec"><b>43</b><small>درجة حرية</small></div>
+      </div>
+      <div class="unit" data-reveal data-d="2">
+        <span class="idx">03</span>
+        <div class="thumb"><img src="assets/unit-go2.jpg" alt="روبوت Unitree Go2 الرباعي يركض على تضاريس صخرية" /></div>
+        <div class="name"><b>Unitree Go2</b><span>منصّة رباعية رشيقة للتفتيش والاستكشاف في البيئات الصعبة.</span></div>
+        <div class="spec"><b>5m/s</b><small>سرعة قصوى</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section class="mission" id="mission">
+    <div class="block wrap">
+      <span class="kicker" data-reveal>Why Savvy</span>
+      <h2 data-reveal data-d="1">مو بس نبيع روبوتات. نبني <em>الجسر</em> بين التقنية والسوق السعودي.</h2>
+      <div class="pillars">
+        <div class="pillar" data-reveal data-d="1"><span class="pn">01</span><h4>دعم محلي حقيقي</h4><p>تركيب وتدريب وصيانة من فريق سعودي يفهم احتياجك، مو خط دعم في توقيت آخر.</p></div>
+        <div class="pillar" data-reveal data-d="2"><span class="pn">02</span><h4>ذكاء اصطناعي مسؤول</h4><p>نماذج عربية تتكلّم لهجتك وتحترم قيمك، مبنية للسوق المحلي من الأساس.</p></div>
+        <div class="pillar" data-reveal data-d="3"><span class="pn">03</span><h4>شريك رؤية 2030</h4><p>نوطّن أحدث تقنيّات العالم ونحوّلها لحلول تشتغل على أرض المملكة.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO — official promo -->
+  <section class="block wrap" id="video">
+    <div class="sec-head" data-reveal>
+      <span class="kicker">Watch</span>
+      <h2>شوف ساڤي يتحرّك.</h2>
+      <p>برومو ساڤي وورلد الرسمي — التقنية، الروبوت، والطاقة في فيديو واحد.</p>
+    </div>
+    <div class="video-wrap" data-reveal data-d="1">
+      <video src="assets/savvy-promo.mp4" controls playsinline preload="metadata" poster="assets/ev-robotnight.jpg"></video>
+    </div>
+    <p style="text-align:center;margin-block-start:1.5rem;">
+      <a href="https://www.tiktok.com/@mr.savvy_saudi" target="_blank" rel="noopener" class="btn btn-ghost">تابعنا على تيك توك <span class="arr">←</span></a>
+    </p>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="contact">
+    <div class="bg" aria-hidden="true"><img src="assets/savvy-kids.png" alt="" /></div>
+    <div class="inner wrap">
+      <span class="kicker" data-reveal style="justify-content:center;color:oklch(0.78 0.14 255);">Get Started</span>
+      <h2 data-reveal data-d="1" style="margin-block-start:1rem;">جاهز تدخل <span class="accent">العالم الجديد</span>؟</h2>
+      <p data-reveal data-d="2">احجز عرضًا حيًّا للروبوت، وخلّ فريق ساڤي يفصّل لك الحل المناسب لمؤسستك.</p>
+      <div class="hero-cta" data-reveal data-d="3">
+        <a href="mailto:hello@savvyworld.ai" class="btn btn-primary">احجز عرضًا <span class="arr">←</span></a>
+        <a href="#fleet" class="btn btn-ghost" style="color:var(--cream);border-color:oklch(0.955 0.012 80 / .3);">شوف الأسطول</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="frow">
+      <div>
+        <span class="brand" style="font-size:1.2rem;">ساڤي وورلد <span class="dot"></span></span>
+        <p style="color:var(--ash);margin-block-start:0.6rem;max-width:34ch;">الموزّع المعتمد لروبوتات Unitree في المملكة العربية السعودية.</p>
+        <!-- روابط السوشال — بانتظار الهاندلز -->
+        <div class="social">
+          <a href="https://www.tiktok.com/@mr.savvy_saudi" target="_blank" rel="noopener" title="TikTok @mr.savvy_saudi">TT</a>
+          <a href="#" title="YouTube — أرسل الرابط">YT</a>
+          <a href="#" title="Instagram — أرسل الرابط">IG</a>
+          <a href="#" title="Facebook — أرسل الرابط">FB</a>
+        </div>
+      </div>
+      <div style="color:var(--ash);">
+        <p>hello@savvyworld.ai</p>
+        <p>الرياض، المملكة العربية السعودية</p>
+      </div>
+    </div>
+    <p class="fnote">© 2026 SAVVY WORLD · YOUR GATEWAY TO THE NEW WORLD · KSA</p>
+  </div>
+</footer>
+
+<script>
+  const hdr = document.getElementById('hdr');
+  const onScroll = () => hdr.classList.toggle('scrolled', window.scrollY > 24);
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('in'));
+  }
+</script>
+</body>
+</html>
