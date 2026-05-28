@@ -3,133 +3,127 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SAVVY: فريق الروبوت ★ العدد ١</title>
-<meta name="description" content="ساڤي وورلد — حيث الروبوتات أبطال. روبوتات Unitree بطابع الكومكس." />
+<title>SAVVY ◆ فريق الروبوت — العدد الأول</title>
+<meta name="description" content="ساڤي وورلد — حين تصبح الروبوتات أبطالًا. عدد مصوّر بطابع الرواية المصوّرة." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Lalezar&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --paper:#f6f1e2; --ink:#141018; --blue:#1f47ff; --red:#ff2b3d; --yellow:#ffd60a; --cyan:#13c4d8;
-    --ease:cubic-bezier(0.16,1,0.3,1); --maxw:1180px; --pad:clamp(1rem,4vw,3.5rem);
+    --paper:#f1ebdd; --paper-2:#e7dfca; --ink:#15121b; --blue:#1b2cff; --red:#ff2f24; --gold:#e7b53b;
+    --ease:cubic-bezier(0.16,1,0.3,1); --maxw:1180px; --pad:clamp(1.1rem,4vw,3.5rem);
   }
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{
-    font-family:"Tajawal",system-ui,sans-serif; color:var(--ink); line-height:1.6; overflow-x:hidden;
-    background-color:var(--paper);
-    background-image:radial-gradient(circle, rgba(20,16,24,.10) 1px, transparent 1.6px);
-    background-size:9px 9px;
-  }
-  ::selection{background:var(--yellow);color:var(--ink)}
+  body{font-family:"Tajawal",system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--blue);color:var(--paper)}
   a{color:inherit;text-decoration:none}
   img{display:block;max-width:100%}
   .wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad);position:relative;z-index:2}
+  .display{font-family:"Tajawal";font-weight:900;letter-spacing:-.02em;line-height:.95}
+  .latin{font-family:"Anton",sans-serif;direction:ltr;letter-spacing:.01em;font-weight:400}
 
-  /* ink panel + hard shadow */
-  .panel{border:3.5px solid var(--ink); background:#fff; box-shadow:7px 7px 0 var(--ink); position:relative; overflow:hidden}
-  .imgwrap{position:relative;overflow:hidden}
-  .imgwrap img{width:100%;height:100%;object-fit:cover;filter:contrast(1.18) saturate(1.35)}
-  .imgwrap::after{content:"";position:absolute;inset:0;background-image:radial-gradient(circle, rgba(0,0,0,.5) 1px, transparent 1.4px);background-size:6px 6px;mix-blend-mode:overlay;opacity:.35;pointer-events:none}
+  /* DUOTONE — the core craft move */
+  .duo{position:relative;overflow:hidden;background:var(--blue)}
+  .duo>img{width:100%;height:100%;object-fit:cover;mix-blend-mode:luminosity;filter:grayscale(1) contrast(1.1) brightness(1.08);opacity:.95}
+  .duo::after{content:"";position:absolute;inset:0;background-image:radial-gradient(circle, rgba(0,0,0,.5) .8px, transparent 1.2px);background-size:5px 5px;mix-blend-mode:soft-light;opacity:.4;pointer-events:none}
+  .duo.ink{background:var(--ink)} .duo.red{background:var(--red)} .duo.gold{background:var(--gold)}
 
-  /* caption box + speech bubble */
-  .cap{position:absolute;inset-block-start:0;inset-inline-start:0;background:var(--yellow);color:var(--ink);border:3px solid var(--ink);border-block-start:none;border-inline-start:none;font-family:"Lalezar";font-size:.95rem;padding:.3rem .8rem;z-index:3;max-width:80%}
-
-  /* burst (POW) */
-  .burst{display:inline-grid;place-items:center;background:var(--red);color:var(--yellow);font-family:"Bangers";letter-spacing:.04em;
-    clip-path:polygon(50% 0,61% 18%,82% 9%,77% 31%,100% 35%,82% 50%,100% 65%,77% 69%,82% 91%,61% 82%,50% 100%,39% 82%,18% 91%,23% 69%,0 65%,18% 50%,0 35%,23% 31%,18% 9%,39% 18%);
-    width:128px;height:128px;text-align:center;line-height:1;text-shadow:2px 2px 0 var(--ink);transform:rotate(-8deg)}
+  .frame{border:2px solid var(--ink);box-shadow:8px 8px 0 var(--ink)}
 
   /* NAV */
-  header{position:fixed;inset-block-start:0;inset-inline:0;z-index:100;transition:background .3s,border-color .3s;border-block-end:3px solid transparent}
-  header.scrolled{background:var(--paper);border-block-end:3px solid var(--ink)}
-  nav{max-width:var(--maxw);margin-inline:auto;padding:.7rem var(--pad);display:flex;align-items:center;justify-content:space-between;gap:1.2rem}
-  .logo{font-family:"Bangers";direction:ltr;font-size:1.7rem;letter-spacing:.02em;color:var(--blue);-webkit-text-stroke:1.5px var(--ink);text-stroke:1.5px var(--ink)}
-  .nav-links{display:flex;gap:1.4rem;align-items:center}
-  .nav-links a:not(.cbtn){font-family:"Lalezar";color:var(--ink);font-size:1.05rem}
-  .nav-links a:not(.cbtn):hover{color:var(--red)}
+  header{position:fixed;inset-block-start:0;inset-inline:0;z-index:100;transition:background .3s,border-color .3s;border-block-end:2px solid transparent}
+  header.scrolled{background:rgba(241,235,221,.92);backdrop-filter:blur(8px);border-block-end:2px solid var(--ink)}
+  nav{max-width:var(--maxw);margin-inline:auto;padding:.8rem var(--pad);display:flex;align-items:center;justify-content:space-between;gap:1.2rem}
+  .logo{font-family:"Anton";direction:ltr;font-size:1.6rem;color:var(--ink)}
+  .logo b{color:var(--blue)}
+  .nav-links{display:flex;gap:1.5rem;align-items:center}
+  .nav-links a:not(.cbtn){font-weight:700;font-size:1rem}
+  .nav-links a:not(.cbtn):hover{color:var(--blue)}
   @media(max-width:820px){.nav-links a:not(.cbtn){display:none}}
-  .cbtn{font-family:"Bangers";direction:ltr;letter-spacing:.03em;background:var(--yellow);color:var(--ink);border:3px solid var(--ink);padding:.5rem 1.1rem;box-shadow:4px 4px 0 var(--ink);transition:transform .15s var(--ease),box-shadow .15s}
-  .cbtn:hover{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+  .cbtn{font-weight:800;background:var(--ink);color:var(--paper);padding:.6rem 1.3rem;border-radius:2px;transition:transform .2s var(--ease),background .2s}
+  .cbtn:hover{transform:translateY(-2px);background:var(--blue)}
 
   /* COVER */
-  .cover{padding-block:6.5rem 3rem}
-  .masthead{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;border-block-end:5px solid var(--ink);padding-block-end:.6rem;margin-block-end:1.4rem;flex-wrap:wrap}
-  .masthead .title{font-family:"Bangers";direction:ltr;font-size:clamp(2.6rem,9vw,6.5rem);line-height:.85;color:var(--blue);-webkit-text-stroke:clamp(2px,.5vw,4px) var(--ink);text-stroke:3px var(--ink)}
-  .masthead .title b{color:var(--red);display:block;font-size:.42em;-webkit-text-stroke:2px var(--ink)}
-  .masthead .issue{font-family:"Bangers";direction:ltr;text-align:center;border:3px solid var(--ink);padding:.4rem .7rem;background:#fff;box-shadow:4px 4px 0 var(--ink);transform:rotate(4deg);line-height:1.05}
-  .masthead .issue span{display:block;font-size:.7rem;color:var(--red)}
-  .masthead .issue b{font-size:1.6rem}
+  .cover{padding-block:6rem 0}
+  .masthead{display:flex;align-items:center;justify-content:space-between;gap:1rem;border-block:3px solid var(--ink);padding-block:.5rem;margin-block-end:2.2rem}
+  .masthead .mh{font-family:"Anton";direction:ltr;font-size:clamp(.85rem,2vw,1.1rem);letter-spacing:.32em;text-transform:uppercase}
+  .masthead .mh b{color:var(--blue)}
+  .masthead .iss{font-family:"Anton";direction:ltr;font-size:clamp(.8rem,2vw,1rem);letter-spacing:.1em;color:var(--red)}
 
-  .cover-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:1.2rem}
-  @media(max-width:840px){.cover-grid{grid-template-columns:1fr}}
-  .cover-hero{aspect-ratio:16/12;min-height:340px}
-  .cover-hero .cap{font-size:1.1rem}
-  .cover-hero .pow{position:absolute;inset-block-end:1rem;inset-inline-end:1rem;z-index:4}
-  .cover-side{display:flex;flex-direction:column;gap:1.2rem}
-  .cover-side .blurb{padding:1.3rem}
-  .cover-side .blurb h1{font-family:"Lalezar";font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.05;margin-block-end:.5rem}
-  .cover-side .blurb h1 em{font-style:normal;color:var(--blue)}
-  .cover-side .blurb p{font-weight:500}
-  .tagbar{background:var(--blue);color:#fff;border:3.5px solid var(--ink);box-shadow:7px 7px 0 var(--ink);font-family:"Lalezar";font-size:clamp(1.1rem,2.5vw,1.7rem);text-align:center;padding:.7rem;transform:rotate(-1deg)}
+  .cover-hero{position:relative;aspect-ratio:21/12;min-height:62vh}
+  .cover-hero .titleblock{position:absolute;inset-block-end:0;inset-inline:0;padding:clamp(1.4rem,4vw,3rem);background:linear-gradient(to top,rgba(21,18,27,.92),rgba(21,18,27,.35) 55%,transparent);z-index:3}
+  .cover-hero .kick{font-family:"Anton";direction:ltr;color:var(--gold);letter-spacing:.18em;font-size:clamp(.8rem,2vw,1.05rem);text-transform:uppercase}
+  .cover-hero h1{color:var(--paper);font-size:clamp(2.6rem,9vw,6.5rem);margin-block:.2rem .4rem}
+  .cover-hero h1 em{font-style:normal;color:var(--blue);-webkit-text-stroke:2px var(--paper)}
+  .cover-hero .tag{color:var(--paper);font-weight:500;font-size:clamp(1rem,2.2vw,1.4rem);max-width:34ch;opacity:.92}
+  .cover-hero .star{position:absolute;inset-block-start:clamp(1rem,3vw,2rem);inset-inline-end:clamp(1rem,3vw,2rem);background:var(--red);color:var(--paper);font-family:"Anton";direction:ltr;width:clamp(74px,12vw,108px);height:clamp(74px,12vw,108px);border-radius:50%;display:grid;place-items:center;text-align:center;line-height:.9;font-size:clamp(.62rem,1.6vw,.82rem);transform:rotate(-10deg);z-index:4;border:2px solid var(--paper)}
 
   /* SECTION */
-  section{padding-block:clamp(3rem,7vw,5.5rem)}
-  .head{display:flex;align-items:center;gap:1rem;margin-block-end:2rem}
-  .head h2{font-family:"Bangers";direction:rtl;font-family:"Lalezar";font-size:clamp(2rem,5vw,3.4rem);background:var(--yellow);border:3.5px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:.2rem 1rem;transform:rotate(-1.5deg)}
+  section{padding-block:clamp(3.5rem,8vw,6rem)}
+  .head{margin-block-end:2.4rem}
+  .head .n{font-family:"Anton";direction:ltr;color:var(--blue);letter-spacing:.2em;font-size:.9rem;text-transform:uppercase}
+  .head h2{font-size:clamp(2rem,5.5vw,3.6rem);margin-block-start:.3rem}
+  .head h2 .display{display:inline}
 
   /* ROSTER */
   .roster{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
-  @media(max-width:760px){.roster{grid-template-columns:1fr}}
-  .hero-card{display:flex;flex-direction:column;transition:transform .2s var(--ease)}
-  .hero-card:hover{transform:translate(-2px,-4px) rotate(-1deg)}
-  .hero-card .imgwrap{aspect-ratio:1;border-block-end:3.5px solid var(--ink)}
-  .hero-card .info{padding:1rem 1.1rem 1.3rem;background:#fff}
-  .hero-card .codename{font-family:"Bangers";direction:ltr;color:var(--red);font-size:1.1rem;-webkit-text-stroke:.5px var(--ink)}
-  .hero-card .nm{font-family:"Lalezar";font-size:1.6rem;line-height:1;margin-block:.1rem .5rem}
-  .hero-card p{font-size:.92rem;font-weight:500;color:#3a3340}
-  .stats{margin-block-start:.9rem;display:grid;gap:.4rem}
-  .stat{display:flex;align-items:center;gap:.5rem;font-family:"Lalezar";font-size:.8rem}
-  .stat .bar{flex:1;height:11px;border:2px solid var(--ink);background:#fff;position:relative}
-  .stat .bar::after{content:"";position:absolute;inset:1px;inset-inline-end:auto;width:var(--w,70%);background:var(--blue)}
+  @media(max-width:780px){.roster{grid-template-columns:1fr}}
+  .hero-card{display:flex;flex-direction:column;background:var(--paper);transition:transform .25s var(--ease)}
+  .hero-card:hover{transform:translateY(-6px)}
+  .hero-card .duo{aspect-ratio:4/5;border-block-end:2px solid var(--ink)}
+  .hero-card .num{position:absolute;inset-block-start:.6rem;inset-inline-end:.8rem;font-family:"Anton";direction:ltr;font-size:clamp(2.4rem,6vw,3.6rem);color:var(--paper);opacity:.85;z-index:3;line-height:1}
+  .hero-card .info{padding:1.2rem 1.3rem 1.5rem}
+  .hero-card .code{font-family:"Anton";direction:ltr;color:var(--red);letter-spacing:.12em;font-size:.95rem}
+  .hero-card .nm{font-weight:900;font-size:1.7rem;line-height:1;margin-block:.15rem .55rem}
+  .hero-card p{color:#423c4a;font-weight:500;font-size:.95rem}
+  .stats{margin-block-start:1rem;display:grid;gap:.5rem}
+  .stat{display:flex;align-items:center;gap:.6rem;font-weight:700;font-size:.78rem}
+  .stat .bar{flex:1;height:9px;border:1.5px solid var(--ink);background:var(--paper);position:relative}
+  .stat .bar::after{content:"";position:absolute;inset:1px;inset-inline-end:auto;width:var(--w,70%);background:var(--ink)}
+  .hero-card:nth-child(1) .stat .bar::after{background:var(--blue)}
+  .hero-card:nth-child(3) .stat .bar::after{background:var(--red)}
 
-  /* STORY panels */
-  .story{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
+  /* STORY */
+  .story{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:1rem}
   @media(max-width:820px){.story{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:480px){.story{grid-template-columns:1fr}}
-  .ply{aspect-ratio:4/3}
-  .ply.big{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
-  @media(max-width:480px){.ply.big{grid-column:span 1}}
+  .ply{position:relative}
+  .ply .cap{position:absolute;inset-block-start:0;inset-inline-start:0;background:var(--paper);color:var(--ink);font-weight:800;font-size:.82rem;padding:.3rem .7rem;border-inline-end:2px solid var(--ink);border-block-end:2px solid var(--ink);z-index:3;max-width:85%}
+  .ply.w2{grid-column:span 2} .ply.h2{grid-row:span 2}
+  @media(max-width:480px){.ply.w2{grid-column:span 1}.ply.h2{grid-row:span 1}}
+  .ply .duo{width:100%;height:100%}
 
   /* CTA */
-  .cta{text-align:center}
-  .cta .panel{padding:clamp(2rem,6vw,4rem) 1.5rem;background:var(--ink);color:var(--paper);background-image:radial-gradient(circle, rgba(255,255,255,.08) 1px, transparent 1.5px);background-size:10px 10px}
-  .cta h2{font-family:"Lalezar";font-size:clamp(2rem,6vw,4rem);line-height:1.05;color:#fff}
-  .cta h2 em{font-style:normal;color:var(--yellow)}
-  .cta p{margin-block:1rem 1.6rem;opacity:.85;font-weight:500}
-  .cta .burst{width:150px;height:150px;font-size:1.3rem;margin:0 auto;cursor:pointer;transition:transform .2s var(--ease)}
-  .cta a.burst:hover{transform:rotate(-8deg) scale(1.06)}
+  .cta .panel{background:var(--ink);color:var(--paper);padding:clamp(2.4rem,7vw,5rem) 1.5rem;text-align:center;position:relative;overflow:hidden}
+  .cta .panel::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle, rgba(255,255,255,.07) 1px, transparent 1.5px);background-size:11px 11px}
+  .cta h2{position:relative;font-size:clamp(2rem,6vw,3.8rem);color:var(--paper)}
+  .cta h2 em{font-style:normal;color:var(--gold)}
+  .cta p{position:relative;margin-block:1rem 1.8rem;opacity:.82;font-weight:500}
+  .cta .go{position:relative;display:inline-block;background:var(--blue);color:var(--paper);font-weight:900;font-size:1.15rem;padding:1rem 2.4rem;border-radius:2px;transition:transform .2s var(--ease),background .2s}
+  .cta .go:hover{transform:translateY(-3px) scale(1.02);background:var(--red)}
 
   /* FOOTER */
-  footer{border-block-start:5px solid var(--ink);padding-block:2.5rem;text-align:center}
-  footer .tbc{font-family:"Bangers";direction:ltr;font-size:clamp(1.4rem,4vw,2.4rem);color:var(--red);-webkit-text-stroke:1px var(--ink)}
-  footer p{font-family:"Lalezar";margin-block-start:.4rem}
+  footer{border-block-start:3px solid var(--ink);padding-block:2.4rem;text-align:center}
+  footer .tbc{font-family:"Anton";direction:ltr;font-size:clamp(1.3rem,4vw,2.2rem);color:var(--ink)}
+  footer .tbc b{color:var(--red)}
+  footer p{font-weight:500;opacity:.7;margin-block-start:.3rem}
 
-  [data-reveal]{opacity:0;transform:translateY(22px) rotate(-1deg);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+  [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
   [data-reveal].in{opacity:1;transform:none}
   [data-d="1"]{transition-delay:.08s}[data-d="2"]{transition-delay:.16s}[data-d="3"]{transition-delay:.24s}
-  @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.001ms!important;animation-duration:.001ms!important}[data-reveal]{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.001ms!important}[data-reveal]{opacity:1;transform:none}.duo::after{display:none}}
 </style>
 </head>
 <body>
 
 <header id="hdr">
   <nav>
-    <a class="logo" href="#top">SAVVY</a>
+    <a class="logo" href="#top">SAVVY<b>◆</b>WORLD</a>
     <div class="nav-links">
       <a href="#roster">الأبطال</a>
       <a href="#story">القصة</a>
-      <a href="#contact" class="cbtn">احجز الآن!</a>
+      <a href="#contact" class="cbtn">احجز عرضًا</a>
     </div>
   </nav>
 </header>
@@ -139,67 +133,60 @@
   <!-- COVER -->
   <section class="cover wrap">
     <div class="masthead">
-      <div class="title">SAVVY<b>WORLD COMICS</b></div>
-      <div class="issue"><span>ISSUE</span><b>#١</b><span>2026 · KSA</span></div>
+      <span class="mh">SAVVY <b>◆</b> WORLD COMICS</span>
+      <span class="iss">ISSUE #01 — RIYADH 2026</span>
     </div>
-
-    <div class="cover-grid">
-      <div class="panel imgwrap cover-hero" data-reveal>
-        <span class="cap">في مكانٍ ما بالرياض… يصحو العملاق.</span>
-        <img src="assets/unit-r1.jpg" alt="روبوت ساڤي البطل في وضع بطولي" />
-        <span class="burst pow">بيب!</span>
-      </div>
-      <div class="cover-side">
-        <div class="panel blurb" data-reveal data-d="1">
-          <h1>فريق <em>الروبوت</em> وصل للسعودية</h1>
-          <p>ثلاثة أبطال من Unitree. صوت عربي، قوة حقيقية، ومهمة واحدة: المستقبل.</p>
-        </div>
-        <div class="tagbar" data-reveal data-d="2">بوابتك للعالم الجديد</div>
-        <a href="#roster" class="cbtn" style="text-align:center;font-size:1.1rem;padding:.8rem" data-reveal data-d="3">قابل الأبطال ←</a>
+    <div class="cover-hero duo frame" data-reveal>
+      <img src="assets/unit-r1.jpg" alt="روبوت ساڤي البطل بمعالجة دوتون" />
+      <span class="star">قابل<br>الأبطال</span>
+      <div class="titleblock">
+        <span class="kick">A Savvy World Production</span>
+        <h1 class="display">فريق <em>الروبوت</em></h1>
+        <p class="tag">ثلاثة أبطال من Unitree. صوت عربي، قوة حقيقية، ومهمة واحدة: المستقبل.</p>
       </div>
     </div>
   </section>
 
   <!-- ROSTER -->
   <section class="wrap" id="roster">
-    <div class="head"><h2>اختر بطلك</h2></div>
+    <div class="head" data-reveal>
+      <span class="n">The Squad</span>
+      <h2 class="display">اختر بطلك.</h2>
+    </div>
     <div class="roster">
-      <div class="panel hero-card" data-reveal>
-        <div class="imgwrap"><img src="assets/unit-r1.jpg" alt="Unitree R1" /><span class="cap">R1</span></div>
+      <div class="hero-card frame" data-reveal>
+        <div class="duo"><img src="assets/unit-r1.jpg" alt="Unitree R1" /><span class="num">01</span></div>
         <div class="info">
-          <span class="codename">THE ROOKIE</span>
-          <div class="nm">الخفيف الرشيق</div>
+          <span class="code">THE ROOKIE</span>
+          <div class="nm display">الخفيف الرشيق</div>
           <p>روبوت بشري خفيف بتكلفة أقل. سريع، رشيق، وبداية كل بطل.</p>
           <div class="stats">
-            <div class="stat">سرعة<span class="bar" style="--w:90%"></span></div>
-            <div class="stat">ذكاء<span class="bar" style="--w:70%"></span></div>
-            <div class="stat">تحمّل<span class="bar" style="--w:75%"></span></div>
+            <div class="stat">السرعة<span class="bar" style="--w:90%"></span></div>
+            <div class="stat">الذكاء<span class="bar" style="--w:70%"></span></div>
           </div>
         </div>
       </div>
-      <div class="panel hero-card" data-reveal data-d="1">
-        <div class="imgwrap"><img src="assets/unit-g1.jpg" alt="Unitree G1" /><span class="cap">G1</span></div>
+      <div class="hero-card frame" data-reveal data-d="1">
+        <div class="duo ink"><img src="assets/unit-g1.jpg" alt="Unitree G1" /><span class="num">02</span></div>
         <div class="info">
-          <span class="codename">THE BRAIN</span>
-          <div class="nm">العقل المدبّر</div>
+          <span class="code">THE BRAIN</span>
+          <div class="nm display">العقل المدبّر</div>
           <p>منصّة متقدّمة للأبحاث والعروض. أذكى الفريق، ويتكلّم عربي.</p>
           <div class="stats">
-            <div class="stat">سرعة<span class="bar" style="--w:78%"></span></div>
-            <div class="stat">ذكاء<span class="bar" style="--w:96%"></span></div>
-            <div class="stat">تحمّل<span class="bar" style="--w:80%"></span></div>
+            <div class="stat">السرعة<span class="bar" style="--w:78%"></span></div>
+            <div class="stat">الذكاء<span class="bar" style="--w:96%"></span></div>
           </div>
         </div>
       </div>
-      <div class="panel hero-card" data-reveal data-d="2">
-        <div class="imgwrap"><img src="assets/unit-go2.jpg" alt="Unitree Go2" /><span class="cap">GO2</span></div>
+      <div class="hero-card frame" data-reveal data-d="2">
+        <div class="duo red"><img src="assets/unit-go2.jpg" alt="Unitree Go2" /><span class="num">03</span></div>
         <div class="info">
-          <span class="codename">THE BEAST</span>
-          <div class="nm">الوحش الكشّاف</div>
+          <span class="code">THE BEAST</span>
+          <div class="nm display">الوحش الكشّاف</div>
           <p>رباعي رشيق يقتحم أصعب البيئات. عينا الفريق وأرجله في الميدان.</p>
           <div class="stats">
-            <div class="stat">سرعة<span class="bar" style="--w:95%"></span></div>
-            <div class="stat">ذكاء<span class="bar" style="--w:65%"></span></div>
-            <div class="stat">تحمّل<span class="bar" style="--w:92%"></span></div>
+            <div class="stat">السرعة<span class="bar" style="--w:95%"></span></div>
+            <div class="stat">التحمّل<span class="bar" style="--w:92%"></span></div>
           </div>
         </div>
       </div>
@@ -208,31 +195,34 @@
 
   <!-- STORY -->
   <section class="wrap" id="story">
-    <div class="head"><h2>القصة حتى الآن…</h2></div>
+    <div class="head" data-reveal>
+      <span class="n">The Story So Far</span>
+      <h2 class="display">القصة حتى الآن.</h2>
+    </div>
     <div class="story">
-      <div class="panel imgwrap ply big" data-reveal><span class="cap">وفي قلب الزحمة… التقى البطل بشعبه.</span><img src="assets/ev-robotnight.jpg" alt="الروبوت وسط الجمهور ليلاً" /></div>
-      <div class="panel imgwrap ply" data-reveal data-d="1"><span class="cap">الصحافة تلاحقه!</span><img src="assets/ev-interview.jpg" alt="مقابلة الروبوت" /></div>
-      <div class="panel imgwrap ply" data-reveal data-d="2"><span class="cap">قرب الحرم.</span><img src="assets/ev-makkah2.jpg" alt="الروبوت قرب مكة" /></div>
-      <div class="panel imgwrap ply" data-reveal data-d="1"><span class="cap">الجيل الجديد يهتف.</span><img src="assets/savvy-kids.png" alt="أطفال مع الروبوت" /></div>
-      <div class="panel imgwrap ply" data-reveal data-d="2"><span class="cap">تحالف الأبطال يُوقَّع.</span><img src="assets/ev-signing.jpg" alt="توقيع شراكة" /></div>
-      <div class="panel imgwrap ply" data-reveal data-d="3"><span class="cap">الوفود تشهد القوة.</span><img src="assets/ev-tour.jpg" alt="جولة المسؤولين" /></div>
+      <div class="ply frame w2 h2" data-reveal><div class="duo"><img src="assets/ev-robotnight.jpg" alt="الروبوت وسط الجمهور ليلاً" /></div><span class="cap">وفي قلب الزحمة… التقى البطل بشعبه.</span></div>
+      <div class="ply frame" data-reveal data-d="1"><div class="duo ink"><img src="assets/ev-interview.jpg" alt="مقابلة الروبوت" /></div><span class="cap">الصحافة تلاحقه!</span></div>
+      <div class="ply frame" data-reveal data-d="2"><div class="duo red"><img src="assets/ev-makkah2.jpg" alt="الروبوت قرب مكة" /></div><span class="cap">قرب الحرم.</span></div>
+      <div class="ply frame w2" data-reveal data-d="1"><div class="duo gold"><img src="assets/ev-signing.jpg" alt="توقيع شراكة" /></div><span class="cap">تحالف الأبطال يُوقَّع.</span></div>
+      <div class="ply frame" data-reveal data-d="2"><div class="duo ink"><img src="assets/savvy-kids.png" alt="أطفال مع الروبوت" /></div><span class="cap">الجيل الجديد يهتف.</span></div>
+      <div class="ply frame" data-reveal data-d="3"><div class="duo"><img src="assets/ev-tour.jpg" alt="جولة المسؤولين" /></div><span class="cap">الوفود تشهد القوة.</span></div>
     </div>
   </section>
 
   <!-- CTA -->
   <section class="wrap cta" id="contact">
-    <div class="panel" data-reveal>
-      <h2>هل تنضم <em>للفريق</em>؟</h2>
+    <div class="panel frame" data-reveal>
+      <h2 class="display">هل تنضم <em>للفريق</em>؟</h2>
       <p>احجز عرضًا حيًّا، وخلّ أبطال ساڤي يزورون مؤسستك.</p>
-      <a href="mailto:hello@savvyworld.ai" class="burst">احجز الآن!</a>
+      <a href="mailto:hello@savvyworld.ai" class="go">ابدأ المهمة ←</a>
     </div>
   </section>
 
 </main>
 
 <footer>
-  <div class="tbc">… TO BE CONTINUED</div>
-  <p>SAVVY WORLD © 2026 · الرياض، السعودية</p>
+  <div class="tbc">TO BE <b>CONTINUED…</b></div>
+  <p>SAVVY ◆ WORLD © 2026 · الرياض، السعودية</p>
 </footer>
 
 <script>
