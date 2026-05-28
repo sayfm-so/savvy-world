@@ -2,3 +2,4 @@ assets/drive/
 .DS_Store
 *.output
 node_modules/
+.omc/

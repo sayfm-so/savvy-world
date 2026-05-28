@@ -1,7 +1,0 @@
-{
-  "tool_name": "Bash",
-  "tool_input_preview": "{\"command\":\"ls -la /Users/sm/savvyworld-redesign 2>/dev/null && echo \\\"---\\\" && ls /Users/sm/savvyworld-redesign/*.md 2>/dev/null\",\"description\":\"List savvyworld-redesign directory contents\"}",
-  "error": "Exit code 1\ntotal 104\ndrwxr-xr-x   6 sm  staff    192 May 28 01:58 .\ndrwxr-x---+ 74 sm  staff   2368 May 28 02:00 ..\ndrwxr-xr-x   3 sm  staff     96 May 26 22:28 .omc\ndrwxr-xr-x  20 sm  staff    640 May 28 01:05 assets\n-rw-r--r--   1 sm  staff  30654 May 28 01:06 index.html\n-rw-r--r--   1 sm  staff  19989 May 28 01:58 retro.html\n---\n(eval):1: no matches found: /Users/sm/savvyworld-redesign/*.md",
-  "timestamp": "2026-05-27T23:02:21.073Z",
-  "retry_count": 1
-}
